@@ -1,0 +1,3 @@
+beautifulsoup
+requests
+purl
