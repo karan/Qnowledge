@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from bs4 import BeautifulSoup
 import requests
 from purl import URL
@@ -19,8 +19,28 @@ def get_data(q_link):
         scheme='https',
         host='www.quora.com',
         path=url.path(),
-        query='share=1')
-    return url.as_string()
+        query='share=1').as_string()
+
+    soup = BeautifulSoup(requests.get(url).text)
+
+    question = {}
+    question['title'] = soup.find("div", {"class": "question_text_edit"}).text
+    question['topics'] = [topic.text for topic in soup.find_all("div", {"class": "topic_list_item"})]
+    question['details'] = soup.find("div", {"class": "question_details_text"}).text
+
+    answers = []
+
+    divs = soup.find_all("div", {"class": "pagedlist_item"})
+    count = 6 if len(divs) >= 6 else len(divs) - 1
+    for i in range(count):
+        one_answer = {}
+        one_answer['author'] = divs[i].find("div", {"class": "answer_user"}).span.text
+        one_answer['votes'] = divs[i].find("span", {"class":"numbers"}).text
+        one_answer['answer'] = divs[i].find("div", {"class": "answer_content"}).text
+        one_answer['rank'] = i + 1
+        answers.append(one_answer)
+
+    return jsonify(question=question, answers=answers)
 
 if __name__ == '__main__':
     app.run(debug=True)
