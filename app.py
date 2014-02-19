@@ -1,3 +1,5 @@
+import re
+
 from flask import Flask, jsonify
 from bs4 import BeautifulSoup
 import requests
@@ -32,11 +34,22 @@ def get_data(q_link):
     answers = []
 
     divs = soup.find_all("div", {"class": "pagedlist_item"})
-    count = 6 if len(divs) >= 6 else len(divs) - 1
+    
+    count = 6 if len(divs) > 6 else len(divs) - 1
+    
     for i in range(count):
-        one_answer = {}
-        # TODO: author also has the headline, need to do some regex
-        one_answer['author'] = divs[i].find("div", {"class": "answer_user"}).span.text
+        one_answer = {
+            'author': {
+                'name': '',
+                'bio': ''
+            },
+            'votes': '-1',
+            'rank': 0,
+            'answer': ''
+        }
+        one_answer['author']['name'] == divs[i].find("div", {"class": "answer_user"}).find("a", {"class": "user"}).text.strip()
+        if one_answer['author']['name'] is not 'Anonymous':
+            one_answer['author']['bio'] == divs[i].find("div", {"class": "answer_user"}).find_all("span", {"class": "rep"})[1].find("span", {"class": "expandable_qtext"}).text
         one_answer['votes'] = divs[i].find("span", {"class":"numbers"}).text
         # TODO: answer body html
         one_answer['answer'] = divs[i].find("div", {"class": "answer_content"}).text
