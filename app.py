@@ -35,21 +35,31 @@ def get_data(q_link):
 
     divs = soup.find_all("div", {"class": "pagedlist_item"})
     
-    count = 6 if len(divs) > 6 else len(divs) - 1
-    
+    try:
+        ans_count = soup.find("div", {"class": "answer_header_text"}).text.strip()
+        count = int(re.match(r'(\d+) Answers', ans_count).groups()[0])
+    except:
+        return jsonify(question=question, answers=answers)
+
+    question['answer_count'] = count
+
+    count = len(divs) - 1 if count < 6 else 6
     for i in range(count):
         one_answer = {
-            'author': {
-                'name': '',
-                'bio': ''
-            },
             'votes': '-1',
             'rank': 0,
             'answer': ''
         }
-        one_answer['author']['name'] == divs[i].find("div", {"class": "answer_user"}).find("a", {"class": "user"}).text.strip()
-        if one_answer['author']['name'] is not 'Anonymous':
-            one_answer['author']['bio'] == divs[i].find("div", {"class": "answer_user"}).find_all("span", {"class": "rep"})[1].find("span", {"class": "expandable_qtext"}).text
+        try:
+            author = {}
+            author['name'] = divs[i].find("div", {"class": "answer_user"}).find("span", {"class": "answer_user_wrapper"}).find("a", {"class": "user"}).string
+            author['bio'] = divs[i].find("div", {"class": "answer_user"}).find("span", {"class": "answer_user_wrapper"}).find_all("span", {"class": "rep"})[1].find("span", {"class": "hidden"}).text
+        except:
+            author['name'] = 'Anonymous'
+            author['bio'] = ''
+        one_answer['author'] = author
+        print author
+
         one_answer['votes'] = divs[i].find("span", {"class":"numbers"}).text
         # TODO: answer body html
         one_answer['answer'] = divs[i].find("div", {"class": "answer_content"}).text
