@@ -1,6 +1,6 @@
 import re
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from bs4 import BeautifulSoup
 import requests
 from purl import URL
@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-    return 'Hello!'
+    return render_template('index.html')
 
 @app.route('/url=<path:q_link>')
 def get_data(q_link):
