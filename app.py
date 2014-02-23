@@ -61,7 +61,12 @@ def get_data(q_link):
         print author
 
         one_answer['votes'] = divs[i].find("span", {"class":"numbers"}).text
-        # TODO: answer body html
+
+        html_block = divs[i].find("div", {"id": re.compile("(.*)_container")}).contents
+        answer_html = ''
+        for p in range(len(html_block) - 1):
+            answer_html += str(html_block[p])
+        one_answer['answer_html'] = answer_html
         one_answer['answer'] = divs[i].find("div", {"class": "answer_content"}).text
         one_answer['rank'] = i + 1
         answers.append(one_answer)
