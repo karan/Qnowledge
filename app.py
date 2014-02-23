@@ -58,7 +58,6 @@ def get_data(q_link):
             author['name'] = 'Anonymous'
             author['bio'] = ''
         one_answer['author'] = author
-        print author
 
         one_answer['votes'] = divs[i].find("span", {"class":"numbers"}).text
 
