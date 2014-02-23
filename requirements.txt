@@ -5,6 +5,7 @@ Werkzeug==0.9.4
 beautifulsoup4==4.3.2
 gunicorn==18.0
 itsdangerous==0.23
+newrelic==2.14.0.11
 purl==0.8
 requests==2.2.1
 six==1.5.2

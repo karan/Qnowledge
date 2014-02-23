@@ -1,6 +1,4 @@
-![](https://raw.github.com/karan/Qnowledge/master/logo.png)
-
-**Release status: Alpha**
+[![](https://raw.github.com/karan/Qnowledge/master/logo.png)](https://github.com/karan/Qnowledge#usage)
 
 Knowledge API for Quora.
 
@@ -16,6 +14,8 @@ Provides access to various details of any question using simple REST API:
     - Rank
     - Answer body
     - Answer body (HTML)
+
+**Author: [Karan Goel](http://www.goel.im/)**
 
 ### Start
 
@@ -83,4 +83,4 @@ If *Qnowledge* has helped you in any way, and you'd like to help the developer, 
 Contribute
 ========
 
-If you want to add any new features, or improve existing ones, feel free to send a pull request!
+If you want to add any new features, or improve existing ones, feel free to [send a pull request](https://github.com/karan/Qnowledge#usage)!
