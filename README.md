@@ -42,7 +42,7 @@ Provides access to various details of any question using simple REST API:
 
 Example:
 
-`http://localhost:5000/url=https://www.quora.com/Google/What-are-the-changes-made-to-the-host-matching-phase-for-Google-Summer-Internships-from-2013-to-2014`
+`http://q.goel.im/url=https://www.quora.com/Google/What-are-the-changes-made-to-the-host-matching-phase-for-Google-Summer-Internships-from-2013-to-2014`
 
 Output:
 
