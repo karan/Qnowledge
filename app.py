@@ -43,6 +43,8 @@ def get_data(q_link):
 
     question['answer_count'] = count
 
+    return jsonify(question=question, answers=answers)
+
     count = len(divs) - 1 if count < 6 else 6
     for i in range(count):
         one_answer = {
