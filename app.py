@@ -28,7 +28,7 @@ def get_data(q_link):
     question = {}
     question['url'] = url
     question['title'] = soup.find("div", {"class": "question_text_edit"}).text
-    question['topics'] = [topic.text for topic in soup.find_all("div", {"class": "topic_list_item"})]
+    question['topics'] = [topic.text for topic in soup.find_all("span", {"class": "TopicName"})]
     question['details'] = soup.find("div", {"class": "question_details_text"}).text
 
     answers = []
