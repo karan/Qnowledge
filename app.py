@@ -59,7 +59,7 @@ def get_data(q_link):
             author['bio'] = ''
         one_answer['author'] = author
 
-        return jsonify(question=question, answers=answers)
+        return jsonify(question=question, answers=answers, one_answer=one_answer)
 
         one_answer['votes'] = divs[i].find("span", {"class":"numbers"}).text
 
