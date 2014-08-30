@@ -36,7 +36,7 @@ def get_data(q_link):
     divs = soup.find_all("div", {"class": "pagedlist_item"})
     
     try:
-        ans_count = soup.find("div", {"class": "answer_header_text"}).text.strip()
+        ans_count = soup.find("div", {"class": "answer_count"}).text.strip()
         count = int(re.match(r'(\d+) Answers', ans_count).groups()[0])
     except:
         return jsonify(question=question, answers=answers)
