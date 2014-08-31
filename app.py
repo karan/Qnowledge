@@ -50,21 +50,23 @@ def get_answers(q_link):
             'rank': 0,
             'answer': ''
         }
+        author = {
+            'name': 'Anonymous'
+        }
         try:
-            author = {}
             author['name'] = divs[i].find("div", {"class": "author_info"}).find("span", {"class": "feed_item_answer_user"}).find("a", {"class": "user"}).string
-#            author['bio'] = divs[i].find("div", {"class": "author_info"}).find("span", {"class": "feed_item_answer_user"}).find_all("span", {"class": "rep"})[1].find("span", {"class": "hidden"}).text
+            author['bio'] = divs[i].find("div", {"class": "author_info"}).find("span", {"class": "feed_item_answer_user"}).find_all("span", {"class": "rep"})[1].find("span", {"class": "hidden"}).text
         except:
-            author['name'] = 'Anonymous'
             author['bio'] = ''
         one_answer['author'] = author
 
-        return jsonify(question=question, answers=answers, one_answer=one_answer)
-
-        one_answer['votes'] = divs[i].find("span", {"class":"numbers"}).text
+        one_answer['votes'] = divs[i].find("span", {"class":"count"}).text
 
         html_block = divs[i].find("div", {"id": re.compile("(.*)_container")}).contents
         answer_html = ''
+
+        return jsonify(question=question, answers=answers, one_answer=one_answer, html_block=html_block)
+
         for p in range(len(html_block) - 1):
             answer_html += str(html_block[p])
         one_answer['answer_html'] = answer_html
