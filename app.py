@@ -85,52 +85,29 @@ def get_questions(s_link):
     soup = BeautifulSoup(requests.get(url).text)
 
     topic = {}
-	# TODO: Find out what the next line should actually say
-    topic['text'] = url.path
+    topic['url'] = url
+    topic['title'] = soup.find("span", {"class": "TopicName"}).text
 
     questions = []
-
     divs = soup.find_all("div", {"class": "pagedlist_item"})
-    
-    try:
-		# I don't think there's a direct equivalent to "answer_count".
-		# More questions load if you scroll down.
-		# Might need a different data structure.
-        q_count = soup.find("div", {"class": "question_count"}).text.strip()
-        count = int(re.match(r'(\d+) Answers', q_count).groups()[0])
-    except:
-        return jsonify(topic=topic, questions=questions)
-
-    #topic['question_count'] = count
-
-	# Does the count thing apply? If not, find another way.
-    count = len(divs) - 1 if count < 6 else 6
+    count = len(divs) - 1
     for i in range(count):
         one_question = {
             'url': '',
 			'title': ''
         }
         try:
-            author = {}
-            author['name'] = divs[i].find("div", {"class": "author_info"}).find("span", {"class": "feed_item_answer_user"}).find("a", {"class": "user"}).string
-            author['bio'] = divs[i].find("div", {"class": "author_info"}).find("span", {"class": "feed_item_answer_user"}).find_all("span", {"class": "rep"})[1].find("span", {"class": "hidden"}).text
+            one_question['url'] = divs[i].find("a", {"class": "question_link"})['href']
+            one_question['title'] = divs[i].find("a", {"class": "question_link"}).find("span", {"class": "link_text"}).text
         except:
-            author['name'] = 'Anonymous'
-            author['bio'] = ''
-        one_question['author'] = author
+            jsonify(topic=topic, questions=questions, parse_failure=one_question)
+        one_question['url'] = URL(
+            scheme='https',
+            host='www.quora.com',
+            path=one_question['url']).as_string()
 
-        return jsonify(topic=topic, questions=questions, one_question=one_question)
-
-        one_question['votes'] = divs[i].find("span", {"class":"numbers"}).text
-
-        html_block = divs[i].find("div", {"id": re.compile("(.*)_container")}).contents
-        question_html = ''
-        for p in range(len(html_block) - 1):
-            question_html += str(html_block[p])
-        one_question['question_html'] = question_html
-        one_answer['question'] = divs[i].find("div", {"class": "question_content"}).text
-        one_answer['rank'] = i + 1
-        answers.append(one_answer)
+        if one_question['title'] != "":
+            questions.append(one_question)
 
     return jsonify(topic=topic, questions=questions)
 

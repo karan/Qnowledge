@@ -184,6 +184,44 @@ $ git push heroku master
     }, 
 &lt;==-------------- snip --------------==&gt;
 </code></pre>
+<h3 id="get-the-question-details">Get list of questions on a topic</h3>
+<h4 id="get-urlurl"><code>GET /topic=&lt;url&gt;</code></h4>
+<p>Example:</p>
+<p><code>http://q.goel.im/url=https://www.quora.com/Google</code></p>
+<p>Output:</p>
+<pre><code>{
+  questions: [
+    {
+      title: "Why hasn't Google purchased Quora yet?",
+      url: "https://www.quora.com/Why-hasnt-Google-purchased-Quora-yet"
+    },
+    {
+      title: "★What are some mind-blowing facts about Google?",
+      url: "https://www.quora.com/What-are-some-mind-blowing-facts-about-Google"
+    },
+    {
+      title: "Is Google Research the "Bell Labs" of 21st century? Why or why not ?",
+      url: "https://www.quora.com/Is-Google-Research-the-Bell-Labs-of-21st-century-Why-or-why-not"
+    },
+    {
+      title: "★Why did Jack Rae leave Quora for Google?",
+      url: "https://www.quora.com/Why-did-Jack-Rae-leave-Quora-for-Google"
+    },
+    {
+      title: "Programming Interviews: Are you expected to write perfect code on your first attempt in tech interviews?",
+      url: "https://www.quora.com/Programming-Interviews/Are-you-expected-to-write-perfect-code-on-your-first-attempt-in-tech-interviews"
+    },
+    {
+      title: "★What are the best stories about people randomly meeting Sergey Brin or Larry Page?",
+      url: "https://www.quora.com/What-are-the-best-stories-about-people-randomly-meeting-Sergey-Brin-or-Larry-Page"
+    }
+  ],
+  topic: {
+    title: "Google",
+    url: "https://www.quora.com/Google?share=1"
+  }
+}
+</code></pre>
 <h1 id="donations">Donations</h1>
 <p>If <em>Qnowledge</em> has helped you in any way, and you'd like to help the developer, please consider donating.</p>
 <p><strong>- BTC: <a href="http://i.imgur.com/bAQgKLN.png">19dLDL4ax7xRmMiGDAbkizh6WA6Yei2zP5</a></strong></p>
