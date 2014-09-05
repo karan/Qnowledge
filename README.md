@@ -4,6 +4,8 @@ Knowledge API for Quora.
 
 Provides access to various details of any question using simple REST API:
 
+- Topics
+    - Questions in a Topic
 - Question:
     - Title
     - Details
@@ -35,6 +37,14 @@ Provides access to various details of any question using simple REST API:
 **Base URL:** [http://q.goel.im](http://q.goel.im)
 
 **Output:** JSON
+
+### Get questions in a topic
+
+#### `GET /topic=<url>`
+
+Example:
+
+`http://localhost:5000/topic=http://www.quora.com/India`
 
 ### Get the question details
 
